@@ -8,3 +8,22 @@ services:
       - .:/myapp
     ports:
       - "8080:8080"
+    networks:
+      - grails-dev-net
+  db:
+    container_name: grails-dev-db
+    image: mariadb:10.5
+    volumes:
+      - grails-dev-db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - grails-dev-net
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+volumes:
+  grails-dev-db-data:
+networks:
+  grails-dev-net:
+    driver: bridge
