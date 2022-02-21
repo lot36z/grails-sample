@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    container_name: grails-dev
+    build: .
+    command: bash -c 'while :; do sleep 10; done'
+    volumes:
+      - .:/myapp
+    ports:
+      - "8080:8080"
