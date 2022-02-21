@@ -1,0 +1,19 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.158.0/containers/docker-existing-docker-compose
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+    "name": "grails-dev-container", // コンテナ表示名
+    "dockerComposeFile": [
+        "../docker-compose-dev.yml" // Docker Composeのファイルパス
+    ],
+    "service": "web", // Docker Composeの接続サービス名
+    // "remoteUser": "dev-user", // デフォルトユーザをrootから切り替える
+    "workspaceFolder": "/myapp", // Workspaceのフォルダを指定
+    "extensions": [ // コンテナ内でインストールするVS Codeの拡張機能ID
+        "vscjava.vscode-java-pack",
+    ],
+    "settings": { // コンテナ内に追加するVS Codeの設定
+        // Formatで使用するツールおを bundle exec で実行するかどうか。
+        "editor.formatOnSave": true
+    }
+}
