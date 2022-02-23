@@ -154,3 +154,4 @@ logging:
         org.hibernate.internal.SessionImpl: trace
         # JDBCコネクションを表示
         org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy: trace
+hibernate.format_sql: true
