@@ -4,6 +4,9 @@ import org.springframework.boot.logging.logback.ColorConverter
 import org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter
 
 import java.nio.charset.StandardCharsets
+import ch.qos.logback.core.rolling.RollingFileAppender
+import ch.qos.logback.core.rolling.TimeBasedRollingPolicy
+import ch.qos.logback.core.util.FileSize
 
 conversionRule 'clr', ColorConverter
 conversionRule 'wex', WhitespaceThrowableProxyConverter
@@ -22,6 +25,23 @@ appender('STDOUT', ConsoleAppender) {
     }
 }
 
+def HOME_DIR = "."
+appender("ROLLING", RollingFileAppender) {
+  encoder(PatternLayoutEncoder) {
+      pattern =
+              '%d{yyyy-MM-dd HH:mm:ss.SSS} ' + // Date
+                      '%5p ' + // Log level
+                      '--- [%15.15t] ' + // Thread
+                      '%-40.40logger{39} : ' + // Logger
+                      '%m%n%wex' // Message
+  }
+  rollingPolicy(TimeBasedRollingPolicy) {
+      fileNamePattern = "${HOME_DIR}/logs/myApp-%d{yyyy-MM-dd}.log"
+      maxHistory = 30
+      totalSizeCap = FileSize.valueOf("2GB")
+  }
+}
+
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir != null) {
     appender("FULL_STACKTRACE", FileAppender) {
@@ -35,3 +55,4 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 root(ERROR, ['STDOUT'])
+root(ERROR, ['ROLLING'])
