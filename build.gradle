@@ -112,3 +112,8 @@ assets {
     minifyJs = true
     minifyCss = true
 }
+
+// カスタム
+grails {
+    pathingJar = true
+}
