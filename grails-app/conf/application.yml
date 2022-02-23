@@ -136,3 +136,21 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+---
+# custom
+# ログの設定
+logging:
+    level:
+        # SQLを表示
+        org.hibernate.SQL: debug
+        # SQLのバインドパラメータを表示（enum以外）
+        org.hibernate.type.descriptor.sql.BasicBinder: trace
+        # SQLのバインドパラメータを表示（enum）
+        org.hibernate.type.EnumType: trace
+        # トランザクションの境界を表示
+        org.hibernate.engine.transaction.internal: debug
+        # Hibernateのセッションの状態を表示
+        org.hibernate.internal.SessionImpl: trace
+        # JDBCコネクションを表示
+        org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy: trace
